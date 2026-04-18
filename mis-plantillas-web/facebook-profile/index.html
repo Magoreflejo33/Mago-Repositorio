@@ -3,53 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Facebook Profile</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-        .banner { height: 300px; background: url('video-banner.mp4') no-repeat center center; background-size: cover; }
-        .profile-info { padding: 20px; background: #fff; display: flex; }
-        .profile-info img { width: 120px; height: 120px; border-radius: 50%; margin-right: 20px; }
-        .posts { padding: 20px; }
-        .post { border: 1px solid #ccc; border-radius: 5px; padding: 10px; margin-bottom: 10px; }
-        .comments { margin-top: 10px; }
-        .reactions { display: flex; gap: 10px; }
-        .reaction { cursor: pointer; }
+        .header { text-align: center; padding: 20px; position: relative; }
+        .banner { width: 100%; max-height: 300px; object-fit: cover; }
+        .whatsapp-button { position: absolute; top: 20px; right: 20px; background: #25D366; color: white; border: none; border-radius: 5px; padding: 10px; cursor: pointer; }
+        #post-section { margin: 20px; }
+        .post { border: 1px solid #ccc; margin: 10px 0; padding: 10px; }
+        .reaction-buttons { display: flex; justify-content: space-between; }
+        .reaction-buttons button { background: none; border: none; cursor: pointer; }
     </style>
 </head>
 <body>
-    <div class="banner">
-        <video autoplay muted loop>
-            <source src="video-banner.mp4" type="video/mp4">
+    <div class="header">
+        <video class="banner" autoplay muted loop>
+            <source src="banner-video.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
+        <button class="whatsapp-button"><i class="fab fa-whatsapp"></i> Contact on WhatsApp</button>
+        <h1>Profile Name</h1>
+        <p>Followers: <span id="follower-count">1000</span></p>
     </div>
-    <div class="profile-info">
-        <img src="profile-pic.jpg" alt="Profile Picture">
-        <div>
-            <h1>John Doe</h1>
-            <p>Software Developer</p>
-            <p>Location: Somewhere</p>
-        </div>
-    </div>
-    <div class="posts">
-        <div class="post">
-            <h2>Post Title</h2>
-            <p>This is a post content.</p>
-            <div class="reactions">
-                <span class="reaction">👍</span>
-                <span class="reaction">❤️</span>
-                <span class="reaction">😮</span>
-            </div>
-            <div class="comments">
-                <h3>Comments</h3>
-                <div class="comment">
-                    <strong>User1:</strong> Great post!
-                </div>
-                <div class="comment">
-                    <strong>User2:</strong> Thanks for sharing.
+
+    <div id="post-section">
+        <h2>Create Post</h2>
+        <textarea id="post-content" rows="4" placeholder="What's on your mind?"></textarea>
+        <button id="post-button">Post</button>
+
+        <h2>Posts Feed</h2>
+        <div id="posts-container">
+            <div class="post">
+                <p>This is a sample post!</p>
+                <div class="reaction-buttons">
+                    <button><i class="fas fa-thumbs-up"></i> Like</button>
+                    <button><i class="far fa-comment"></i> Comment</button>
+                    <button><i class="fab fa-whatsapp"></i> Share on WhatsApp</button>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        document.getElementById('post-button').addEventListener('click', function() {
+            const content = document.getElementById('post-content').value;
+            const postsContainer = document.getElementById('posts-container');
+            const newPost = document.createElement('div');
+            newPost.className = 'post';
+            newPost.innerHTML = `<p>${content}</p>\n                <div class='reaction-buttons'>\n                    <button><i class='fas fa-thumbs-up'></i> Like</button>\n                    <button><i class='far fa-comment'></i> Comment</button>\n                    <button><i class='fab fa-whatsapp'></i> Share on WhatsApp</button>\n                </div>`;
+            postsContainer.prepend(newPost);
+            document.getElementById('post-content').value = '';
+        });
+    </script>
 </body>
 </html>
